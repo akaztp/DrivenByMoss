@@ -214,6 +214,13 @@ public class SlotImpl extends AbstractItemImpl implements ISlot
         this.slot.record ();
     }
 
+    @Override
+    public void createEmptyClip (Integer beats)
+    {
+        this.slot.createEmptyClip (beats);
+    }
+
+
 
     /** {@inheritDoc} */
     @Override

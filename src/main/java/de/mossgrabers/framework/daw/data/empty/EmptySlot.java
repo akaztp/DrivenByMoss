@@ -107,6 +107,12 @@ public class EmptySlot extends EmptyItem implements ISlot
         // Intentionally empty
     }
 
+    @Override
+    public void createEmptyClip (Integer beats)
+    {
+        // Intentionally empty
+    }
+
 
     /** {@inheritDoc} */
     @Override

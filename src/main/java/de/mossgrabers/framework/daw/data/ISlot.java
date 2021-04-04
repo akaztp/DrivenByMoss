@@ -90,6 +90,9 @@ public interface ISlot extends IItem
     void record ();
 
 
+    void createEmptyClip (Integer beats);
+
+
     /**
      * Delete a clip.
      */

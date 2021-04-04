@@ -440,6 +440,15 @@ public class TrackModule extends AbstractModule
             final ISlot slot = track.getSlotBank ().getItem (clipNo);
             switch (clipCommand)
             {
+                case "create":
+                    try
+                    {
+                        slot.createEmptyClip (toInteger (value));
+                    }
+                    catch (final IllegalParameterException ex)
+                    {
+                    }
+                    break;
                 case "select":
                 case "selected":
                     slot.select ();
