@@ -71,7 +71,8 @@ public class TransportModule extends AbstractModule
             "crossfade",
             "autowrite",
             "automationWriteMode",
-            "preroll"
+            "preroll",
+            "postRecordingOffset"
         };
     }
 
@@ -250,6 +251,11 @@ public class TransportModule extends AbstractModule
             case "preroll":
                 this.transport.setPrerollAsBars (toInteger (value));
                 break;
+
+            case "postRecordingOffset":
+                this.transport.setClipLauncherPostRecordingTimeOffset (toNumber (value));
+                break;
+
 
             default:
                 throw new UnknownCommandException (command);

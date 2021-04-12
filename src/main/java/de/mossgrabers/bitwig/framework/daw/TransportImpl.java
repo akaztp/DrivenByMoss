@@ -61,6 +61,7 @@ public class TransportImpl implements ITransport
         this.transport.tempo ().value ().addRawValueObserver (this::handleTempo);
         this.transport.getPosition ().markInterested ();
         this.transport.crossfade ().value ().markInterested ();
+        this.transport.getClipLauncherPostRecordingTimeOffset ().markInterested ();
 
         final SettableRangedValue metronomeVolume = this.transport.metronomeVolume ();
         metronomeVolume.markInterested ();
@@ -648,5 +649,13 @@ public class TransportImpl implements ITransport
     private void handleTempo (final double value)
     {
         this.tempo = Math.min (TransportConstants.MAX_TEMPO, Math.max (TransportConstants.MIN_TEMPO, value));
+    }
+
+
+    /** {@inheritDoc} */
+    @Override
+    public void setClipLauncherPostRecordingTimeOffset (final double beats)
+    {
+        this.transport.getClipLauncherPostRecordingTimeOffset ().set (beats);
     }
 }
