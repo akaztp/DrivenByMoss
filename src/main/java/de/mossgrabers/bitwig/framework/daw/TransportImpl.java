@@ -7,6 +7,8 @@ package de.mossgrabers.bitwig.framework.daw;
 import de.mossgrabers.bitwig.framework.daw.data.Util;
 import de.mossgrabers.framework.controller.valuechanger.IValueChanger;
 import de.mossgrabers.framework.daw.ITransport;
+import de.mossgrabers.framework.daw.constants.LaunchQuantization;
+import de.mossgrabers.framework.daw.constants.PostRecordingAction;
 import de.mossgrabers.framework.daw.constants.TransportConstants;
 import de.mossgrabers.framework.utils.StringUtils;
 
@@ -61,7 +63,9 @@ public class TransportImpl implements ITransport
         this.transport.tempo ().value ().addRawValueObserver (this::handleTempo);
         this.transport.getPosition ().markInterested ();
         this.transport.crossfade ().value ().markInterested ();
+        this.transport.clipLauncherPostRecordingAction ().markInterested ();
         this.transport.getClipLauncherPostRecordingTimeOffset ().markInterested ();
+        this.transport.defaultLaunchQuantization ().markInterested ();
 
         final SettableRangedValue metronomeVolume = this.transport.metronomeVolume ();
         metronomeVolume.markInterested ();
@@ -94,6 +98,9 @@ public class TransportImpl implements ITransport
         Util.setIsSubscribed (this.transport.tempo ().value (), enable);
         Util.setIsSubscribed (this.transport.getPosition (), enable);
         Util.setIsSubscribed (this.transport.crossfade ().value (), enable);
+        Util.setIsSubscribed (this.transport.clipLauncherPostRecordingAction (), enable);
+        Util.setIsSubscribed (this.transport.getClipLauncherPostRecordingTimeOffset (), enable);
+        Util.setIsSubscribed (this.transport.defaultLaunchQuantization (), enable);
 
         final SettableRangedValue metronomeVolume = this.transport.metronomeVolume ();
         Util.setIsSubscribed (metronomeVolume, enable);
@@ -522,7 +529,7 @@ public class TransportImpl implements ITransport
 
     /** {@inheritDoc} */
     @Override
-    public double rescaleTempo (final double tempo, final int maxValue)
+    public double scaleTempo (final double tempo, final int maxValue)
     {
         final double v = tempo - TransportConstants.MIN_TEMPO;
         return v * (maxValue - 1) / (TransportConstants.MAX_TEMPO - TransportConstants.MIN_TEMPO);
@@ -654,8 +661,48 @@ public class TransportImpl implements ITransport
 
     /** {@inheritDoc} */
     @Override
+    public PostRecordingAction getClipLauncherPostRecordingAction ()
+    {
+        return PostRecordingAction.lookup (this.transport.clipLauncherPostRecordingAction ().get ());
+    }
+
+
+    /** {@inheritDoc} */
+    @Override
+    public void setClipLauncherPostRecordingAction (final PostRecordingAction action)
+    {
+        this.transport.clipLauncherPostRecordingAction ().set (action.getIdentifier ());
+    }
+
+
+    /** {@inheritDoc} */
+    @Override
+    public double getClipLauncherPostRecordingTimeOffset ()
+    {
+        return this.transport.getClipLauncherPostRecordingTimeOffset ().get ();
+    }
+
+
+    /** {@inheritDoc} */
+    @Override
     public void setClipLauncherPostRecordingTimeOffset (final double beats)
     {
         this.transport.getClipLauncherPostRecordingTimeOffset ().set (beats);
+    }
+
+
+    /** {@inheritDoc} */
+    @Override
+    public LaunchQuantization getDefaultLaunchQuantization ()
+    {
+        return LaunchQuantization.lookup (this.transport.defaultLaunchQuantization ().get ());
+    }
+
+
+    /** {@inheritDoc} */
+    @Override
+    public void setDefaultLaunchQuantization (final LaunchQuantization launchQuantization)
+    {
+        this.transport.defaultLaunchQuantization ().set (launchQuantization.getValue ());
     }
 }

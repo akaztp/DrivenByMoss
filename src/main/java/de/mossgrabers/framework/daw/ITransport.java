@@ -4,6 +4,8 @@
 
 package de.mossgrabers.framework.daw;
 
+import de.mossgrabers.framework.daw.constants.LaunchQuantization;
+import de.mossgrabers.framework.daw.constants.PostRecordingAction;
 import de.mossgrabers.framework.observer.ObserverManagement;
 
 
@@ -392,13 +394,13 @@ public interface ITransport extends ObserverManagement
 
 
     /**
-     * Rescale the tempo (in the range from MIN_TEMPO and MAX_TEMPO to the range of 0 to maxValue.
+     * Scale the tempo (in the range from MIN_TEMPO and MAX_TEMPO to the range of 0 to maxValue.
      *
-     * @param tempo The tempo to rescale
+     * @param tempo The tempo to scale
      * @param maxValue The upper bound
      * @return The rescaled tempo
      */
-    double rescaleTempo (final double tempo, final int maxValue);
+    double scaleTempo (final double tempo, final int maxValue);
 
 
     /**
@@ -490,10 +492,53 @@ public interface ITransport extends ObserverManagement
     int getQuartersPerMeasure ();
 
 
+
     /**
-     * Sets the clip launcher post recording time offset to the given beat time value.
+     * Get the clip launcher post recording action.
      *
-     * @param beats The new time offset
+     * @return The clip launcher post recording action
      */
-    void setClipLauncherPostRecordingTimeOffset (double beats);
-}
+    PostRecordingAction getClipLauncherPostRecordingAction ();
+
+
+    /**
+     * Set the clip launcher post recording action.
+     *
+     * @param action The action
+     */
+    void setClipLauncherPostRecordingAction (final PostRecordingAction action);
+
+
+    /**
+     * Get the clip launcher post recording time offset.
+     *
+     * @return The number of beats
+     */
+    double getClipLauncherPostRecordingTimeOffset ();
+
+
+    /**
+     * Set the clip launcher post recording time offset.
+     *
+     * @param beats The number of beats
+     */
+    void setClipLauncherPostRecordingTimeOffset (final double beats);
+
+
+    /**
+     * Get the default launch quantization.
+     *
+     * @return The default launch quantization
+     */
+    public LaunchQuantization getDefaultLaunchQuantization ();
+
+
+    /**
+     * Set the default launch quantization.
+     *
+     * @param launchQuantization The default launch quantization
+     */
+    public void setDefaultLaunchQuantization (final LaunchQuantization launchQuantization);
+
+  }
+

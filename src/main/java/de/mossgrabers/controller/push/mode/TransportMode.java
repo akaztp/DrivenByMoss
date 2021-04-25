@@ -147,7 +147,7 @@ public class TransportMode extends BaseMode
         display.addOptionElement ("Time Sig.", "", false, "   " + transport.getNumerator () + " / " + transport.getDenominator (), "", false, false);
         display.addOptionElement ("Play Position", "", false, null, transport.getPositionText (), "", false, null, false, this.isKnobTouched[6]);
         display.addOptionElement ("", "", false, "", "", false, false);
-        display.addParameterElement ("Tempo", (int) transport.rescaleTempo (tempo, this.model.getValueChanger ().getUpperBound ()), transport.formatTempo (tempo), this.isKnobTouched[4], -1);
+        display.addParameterElement ("Tempo", (int) transport.scaleTempo (tempo, this.model.getValueChanger ().getUpperBound ()), transport.formatTempo (tempo), this.isKnobTouched[4], -1);
     }
 
 
